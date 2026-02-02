@@ -7,6 +7,7 @@ error() { printf "[ERROR] %s\n" "$*" >&2; }
 
 NDD_DATA_DIR="./data"
 BINARY_FILE=""
+NDD_AUTH_TOKEN=""
 
 
 print_help() {
@@ -16,6 +17,7 @@ Usage: $(basename "$0") [OPTIONS]
 Options:
   ndd_data_dir=DIR   Set the data directory (default: ./data)
   binary_file=FILE   Set the binary file to run (default: auto-detected in build/)
+  NDD_AUTH_TOKEN=TOKEN Set the auth token (default: empty)
   --help, -h         Show this help message and exit
 
 Description:
@@ -32,6 +34,9 @@ main() {
                 ;;
             binary_file=*)
                 BINARY_FILE="${ARG#*=}"
+                ;;
+            ndd_auth_token=*)
+                NDD_AUTH_TOKEN="${ARG#*=}"
                 ;;
             --help|-h)
                 print_help
@@ -53,7 +58,7 @@ main() {
 
     # run the binary with the arguments passed to this script
     if [[ -n "$BINARY_FILE" ]]; then
-        eval "NDD_DATA_DIR=$NDD_DATA_DIR $BINARY_FILE"
+        eval "NDD_DATA_DIR=$NDD_DATA_DIR NDD_AUTH_TOKEN=$NDD_AUTH_TOKEN $BINARY_FILE"
     fi
 }
 
