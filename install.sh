@@ -406,6 +406,12 @@ main() {
     build_project
 
     add_frontend
+
+
+    log ""
+    log "Build and installation successful!"
+    log "You can now start the server by running:"
+    log "  ./run.sh"
 }
 
 main "$@"
