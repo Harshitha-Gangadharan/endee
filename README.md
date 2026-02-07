@@ -121,3 +121,28 @@ source HG_venv/bin/activate
 pip install -r backend/requirements.txt
 ```
 
+**Step 4: Configure Environment Variables**
+Create the .env file:
+
+```
+touch .env
+```
+
+Add your Hugging Face token to the file. Open it with your preferred editor and insert the following line:
+
+```
+HF_TOKEN="your_hugging_face_token_here"
+```
+
+How to Obtain Your Hugging Face Token
+Follow these brief steps to generate your access key:
+
+1.  Login: Sign in to your account at huggingface.co.
+
+2.  Settings: Click your profile icon in the top-right corner and select Settings.
+
+3.  Access Tokens: Select Access Tokens from the left-side navigation menu.
+
+4.  Generate: Click New token, provide a name, and select the Read role
+
+5.  Copy: Copy the token and paste it into the .env file you created.
