@@ -14,4 +14,20 @@ To ensure a structured development process and clear version control for the **A
 ---
 
 **Progess:**
-Backend completed.
+
+The development was executed over a structured 5-day sprint on an **Ubuntu-based ThinkPad-L480**.
+
+### **Day 1: Environment Orchestration & Scalability**
+
+- Initialized a containerized environment using Docker to isolate the **Endee Engine**.
+- Configured `ulimits` and thread detection to optimize the C++ engine performance for local hardware.
+
+### **Day 2: The Compliance Pipeline (Extraction & Masking)**
+
+- Developed a robust parsing layer to extract structured text from varied PDF layouts.
+- Engineered a custom PII Redaction Scanner to mask sensitive candidate data before it enters the AI pipeline.
+
+### **Day 3: Vector Space Engineering & Ingestion**
+
+- Interfaced with the **Endee SDK** to initialize high-precision indexes (`INT8D` precision).
+- Successfully synchronized the embedding pipeline to commit vectors to the local engine.
