@@ -1,16 +1,22 @@
 import io
+import os
 from fastapi import FastAPI, UploadFile, File
+from dotenv import load_dotenv
 from .core.scanner import ComplianceScanner
-from .core.embedder import LocalEmbedder
+from .core.embedder import OnlineEmbedder 
 from .services.endee_client import EndeeClient
-import fitz # PyMuPDF
+import fitz 
 
+load_dotenv()
 app = FastAPI(title="AI Compliance Checker - Modular")
 
 # Initialize Modular Services
+HF_TOKEN = os.getenv("HF_TOKEN")
 scanner = ComplianceScanner()
-embedder = LocalEmbedder()
+embedder = OnlineEmbedder(token=HF_TOKEN)
 db_client = EndeeClient()
+
+
 
 @app.on_event("startup")
 async def startup():
