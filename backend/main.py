@@ -59,7 +59,17 @@ async def upload_resume(file: UploadFile = File(...)):
     }
 
 @app.get("/search")
-async def search(query: str):
+async def search(query: str, limit: int = 5):
+    # 1. Convert the search text into a 384-dimension vector
     query_vector = embedder.generate_vector(query)
-    results = db_client.search(query_vector)
-    return {"results": results}
+    
+    if not query_vector or all(v == 0 for v in query_vector):
+        return {"error": "Failed to generate search vector"}
+
+    # 2. Search the Endee database
+    matches = db_client.search_resumes(query_vector, top_k=limit)
+    
+    return {
+        "query": query,
+        "results": matches
+    }
