@@ -1,41 +1,39 @@
 import requests
 import uuid
 
+
 class EndeeClient:
     def __init__(self):
-        # We define the base_url here so we can talk to Docker directly
-        self.base_url = "http://localhost:8080"
+        # The Dashboard is at /indexes/create, but the API is usually at /v1/indexes
+        self.base_url = "http://localhost:8080/v1" 
         self.index_name = "resumes_endee"
+        self.headers = {"Content-Type": "application/json"}
 
     def initialize_collection(self):
-        """Pure API version: No SDK, no Pydantic errors."""
         url = f"{self.base_url}/collections"
-        payload = {
-            "name": self.index_name,
-            "dimension": 384,
-            "space_type": "cosine"
-        }
         try:
-            # Check if index exists
+            # Step 1: Check if it exists
             check = requests.get(f"{url}/{self.index_name}")
+            
             if check.status_code == 200:
                 print(f"--- Index '{self.index_name}' verified! ---")
             else:
-                # Create it if it's missing
-                requests.post(url, json=payload)
-                print(f"--- SUCCESS: Index created via API! ---")
+                # Step 2: Create with explicit headers
+                payload = {
+                    "name": self.index_name,
+                    "dimension": 384,
+                    "space_type": "cosine"
+                }
+                response = requests.post(url, json=payload, headers=self.headers)
+                
+                if response.status_code in [200, 201]:
+                    print(f"--- SUCCESS: Index '{self.index_name}' created via API! ---")
+                else:
+                    print(f"--- FAILED to create index: {response.text} ---")
         except Exception as e:
             print(f"--- Connection Error: {e} ---")
 
-    def check_health(self):
-        try:
-            response = requests.get(f"{self.base_url}/health", timeout=5)
-            return response.status_code == 200
-        except:
-            return False
-
     def insert_resume(self, filename, vector, metadata):
-        """Matches your old project's logic but uses safe REST calls."""
         url = f"{self.base_url}/collections/{self.index_name}/points"
         payload = {
             "points": [{
@@ -45,17 +43,9 @@ class EndeeClient:
             }]
         }
         try:
-            response = requests.put(url, json=payload)
+            # Use headers here too!
+            response = requests.put(url, json=payload, headers=self.headers)
             return response.status_code == 200
         except Exception as e:
             print(f"--- Upsert Error: {e} ---")
             return False
-
-    def search_resumes(self, query_vector, top_k=5):
-        url = f"{self.base_url}/collections/{self.index_name}/query"
-        payload = {"vector": query_vector, "top_k": top_k}
-        try:
-            response = requests.post(url, json=payload)
-            return response.json() if response.status_code == 200 else []
-        except:
-            return []

@@ -49,10 +49,12 @@ async def upload_resume(file: UploadFile = File(...)):
         }
     )
 
+
     return {
         "filename": file.filename,
         "compliance_score": score,
-        "location_detected": meta_tags["detected_location"],
+        "vector_sample": vector[:5],  # Add this to see the first 5 numbers
+        "vector_length": len(vector), # Should be 384
         "status": "Securely Indexed"
     }
 
