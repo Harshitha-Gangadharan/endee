@@ -20,7 +20,8 @@ db_client = EndeeClient()
 
 @app.on_event("startup")
 async def startup():
-    db_client.initialize_index()
+    
+    db_client.initialize_collection()
 
 @app.post("/upload-compliant")
 async def upload_resume(file: UploadFile = File(...)):
@@ -36,10 +37,10 @@ async def upload_resume(file: UploadFile = File(...)):
     vector = embedder.generate_vector(clean_text)
 
     # 4. Store in Endee
-    db_client.upsert_resume(
-        id=file.filename,
+    db_client.insert_resume(  # Change 'upsert_resume' to 'insert_resume'
+        filename=file.filename,
         vector=vector,
-        meta={
+        metadata={
             "score": score,
             "violations": violations,
             "preview": clean_text[:200]
