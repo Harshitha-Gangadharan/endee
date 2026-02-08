@@ -18,49 +18,26 @@ The system follows a modular architecture that prioritizes data privacy and loca
 
 ### 1. Workspace Initialization
 
-Create your project workspace to house both the database engine and the application logic.
+Clone your forked repository which contains both the Endee core and the internship project..
 
-```bash
-# Create and enter the workspace
-mkdir ResumeShield_Project
-cd ResumeShield_Project
+Using HTTP:
+
+```
+git clone https://github.com/Harshitha-Gangadharan/endee.git
+```
+
+Using SSH:
+
+```
+git clone git@github.com:Harshitha-Gangadharan/endee.git
 ```
 
 ### 2. Set up Endee Vector DB
 
-**Create Project Directory**
+Change dir
 
 ```
-mkdir endee && cd endee
-```
-
-**Create docker-compose.yml**
-
-Create a file named docker-compose.yml with the following content:
-
-```
-services:
-  endee:
-    image: endeeio/endee-server:latest
-    container_name: endee-server
-    ports:
-      - "8080:8080"
-    ulimits:
-      nofile: 100000
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200m"
-        max-file: "5"
-    environment:
-      NDD_NUM_THREADS: 0    # Automatic thread detection
-      NDD_AUTH_TOKEN: ""    # Authentication token (optional)
-    volumes:
-      - endee-data:/data
-    restart: unless-stopped
-
-volumes:
-  endee-data:
+cd endee
 
 ```
 
@@ -79,52 +56,33 @@ docker ps
 
 You should see a container named endee-server
 
-### 3. Clone the Application Repository
+### 3. Setting Up the Application
 
-Using HTTP:
+We use a Python Virtual Environment (venv) to manage dependencies for the FastAPI backend located in the internship folder.
 
-```
-git clone https://github.com/Harshitha-Gangadharan/AI_compliance_checker.git
-```
-
-Using SSH:
+Step 1: Create the Virtual Environment This isolates your project libraries from the system-wide Python installation.
 
 ```
-git clone git@github.com:Harshitha-Gangadharan/AI_compliance_checker.git
+python3 -m venv venv
 ```
 
-### 4. Setting Up the Application
-
-To ensure a clean development environment, we use a Python Virtual Environment (HG_venv) to manage dependencies for the FastAPI backend.
-
-**Navigate to the application directory:**
-
-```bash
-cd ../ResumeShield_Project
-```
-
-**Step 1: Create the Virtual Environment This isolates our project libraries from the system-wide Python installation.**
+Step 2: Activate the Environment
 
 ```
-python3 -m venv HG_venv
+source venv/bin/activate
 ```
 
-**Step 2: Activate the Environment On Ubuntu, run the following command to enter the virtual environment:**
+Step 3: Install Project Requirements
 
 ```
-source HG_venv/bin/activate
+pip install -r internship-project-harshitha/requirements.txt
 ```
 
-**Step 3: Install Project Requirements We install the core libraries required for AI processing and API development:**
-
-```
-pip install -r backend/requirements.txt
-```
-
-**Step 4: Configure Environment Variables**
+**Configure Environment Variables**
 Create the .env file:
 
 ```
+cd internship-project-harshitha
 touch .env
 ```
 

@@ -23,3 +23,9 @@ frontend/*
 
 # DS Store
 .DS_Store
+
+HG_venv/
+.env
+__pycache__/
+*.pyc
+
