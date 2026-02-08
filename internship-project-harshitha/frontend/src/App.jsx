@@ -7,9 +7,7 @@ function App() {
 	const [results, setResults] = useState([]);
 
 	const handleNewUpload = (data) => {
-		alert(
-			`✅ ${data.filename} processed with ${data.compliance_score}% compliance!`
-		);
+		console.log("New Resume Indexed:", data);
 	};
 
 	// Helper function for score colors
