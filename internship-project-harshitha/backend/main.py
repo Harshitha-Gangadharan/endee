@@ -2,6 +2,9 @@ import io
 import os
 from fastapi import FastAPI, UploadFile, File
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 # Import your modular services
 from .core.parser import ComplianceParser
@@ -11,6 +14,13 @@ from .services.endee_client import EndeeClient
 
 load_dotenv()
 app = FastAPI(title="Resume-Shield: AI Compliance Checker")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Initialize Services
 parser = ComplianceParser()

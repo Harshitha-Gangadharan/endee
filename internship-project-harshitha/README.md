@@ -63,7 +63,7 @@ We use a Python Virtual Environment (venv) to manage dependencies for the FastAP
 Step 1: Create the Virtual Environment This isolates your project libraries from the system-wide Python installation.
 
 ```
-python3 -m venv venv
+python3 -m venv HG_venv
 ```
 
 Step 2: Activate the Environment
@@ -104,3 +104,35 @@ Follow these brief steps to generate your access key:
 4.  Generate: Click New token, provide a name, and select the Read role
 
 5.  Copy: Copy the token and paste it into the .env file you created.
+
+### 4. Running the Application
+
+Step 1: Activate the Environment from the root(i.e endee)
+
+```
+source HG_venv/bin/activate
+```
+
+Step 2: Ensure your Hugging Face Token is set in .env file we created in /internship-project-harshitha
+
+Step 3: Start the server on port 8000
+
+```
+uvicorn backend.main:app --reload --port 8000
+```
+
+Verification: Open http://localhost:8000/docs. If you see the Swagger UI, your backend is alive and ready.
+
+Step 4: Start the Vite Frontend(Terminal 2)
+
+```
+#Open new terminal
+# Navitage to the frontend directory(/endee/internship-project-harshitha/frontend)
+
+# Install dependencies
+npm install
+
+# Start the Vite development server
+npm run dev
+
+```
