@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { resumeService } from "../services/api";
 
 const SearchBox = ({ setResults }) => {
@@ -16,30 +16,29 @@ const SearchBox = ({ setResults }) => {
 	};
 
 	return (
-		<div className="search-container" style={{ display: "flex", gap: "10px" }}>
-			<input
-				type="text"
-				value={query}
-				onChange={(e) => setQuery(e.target.value)}
-				placeholder="Search for skills (e.g. Python, Docker)..."
-				style={{
-					flex: 1,
-					padding: "10px",
-					borderRadius: "4px",
-					border: "1px solid #ccc",
-				}}
-			/>
+		<div className="flex flex-col gap-3">
+			<div className="relative group">
+				<div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+					<Sparkles
+						size={18}
+						className="text-blue-500 group-focus-within:animate-pulse"
+					/>
+				</div>
+				<input
+					type="text"
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
+					onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+					placeholder="Search for skills (e.g. Python, Docker)..."
+					className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-slate-400"
+				/>
+			</div>
 			<button
 				onClick={handleSearch}
-				style={{
-					padding: "10px 20px",
-					background: "#2563eb",
-					color: "white",
-					borderRadius: "4px",
-					border: "none",
-				}}
+				className="w-full flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all"
 			>
-				<Search size={20} />
+				<Search size={18} />
+				<span>Execute Semantic Search</span>
 			</button>
 		</div>
 	);
