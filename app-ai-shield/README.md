@@ -117,7 +117,10 @@ Step 2: Ensure your Hugging Face Token is set in .env file we created in /intern
 
 Step 3: Start the server on port 8000
 
+Note:virtual Environment(HG_venv) should be active while u run the "uvicorn" command or app
+
 ```
+cd internship-project-harshitha
 uvicorn backend.main:app --reload --port 8000
 ```
 
