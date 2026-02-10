@@ -129,6 +129,26 @@ The system follows a modular architecture that prioritizes data privacy and loca
 
 ```
 
+## 🖥️ The Recruiter Experience
+
+![UI](../app-ai-shield/assets/o1.png)
+
+### A. Secure Ingestion Portal
+
+The **"Upload Zone"** serves as the first line of defense. It handles batch-processing of resumes while providing real-time visual feedback.
+
+**Feature:** Multi-file drag-and-drop.
+
+**Backend Sync:** Triggers the PII scanner immediately upon receipt, ensuring no sensitive data remains in the browser's state.
+
+## B. Semantic Talent Discovery
+
+Moving beyond keyword matching, this interface allows recruiters to query the Endee Engine using natural language.
+
+**Feature:** Predictive search input.
+
+**Result Cards:** Displaying truncated, redacted previews and color-coded Compliance Scores to prioritize data safety.
+
 ## Setup & Installation
 
 ### 1. Workspace Initialization
