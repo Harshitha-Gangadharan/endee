@@ -1,6 +1,9 @@
 # 🛡️ Resume-Shield AI (Compliance-First Screening)
 
-This project was developed as a **technical test project for the internship selection process at Endee Labs**. It demonstrates a privacy-centric resume screening tool that integrates a local **PII Redaction Scanner** with the **Endee Labs Vector Engine** to ensure candidate data remains secure during AI processing.
+  <h1>👩‍💻Harshitha Gangadharan</h1>
+  <img src="https://img.shields.io/static/v1?label=Dev&message=Resume--Shield+AI&color=8E44AD&style=plastic&logo=github" height="30">
+
+This project was developed as a technical test project for the internship selection process at Endee Labs**. It demonstrates a privacy-centric resume screening tool that integrates a local **PII Redaction Scanner** with the **Endee Labs Vector Engine\*\* to ensure candidate data remains secure during AI processing.
 
 ---
 
@@ -274,3 +277,111 @@ npm install
 npm run dev
 
 ```
+
+## 🛠 API Endpoints
+
+1. **Upload & Index Resume**
+
+```
+POST /upload-compliant
+```
+
+This is the primary ingestion endpoint. It handles the secure processing of a resume file.
+
+How it works:
+
+1. Parse: Extracts text and identifies metadata like location and experience level.
+
+2. Scan: Redacts PII and calculates a compliance_score.
+
+3. Vectorize: Converts the redacted text into a 384-dimension vector using HuggingFace.
+
+4. Store: Indexes the vector and metadata in the Endee database.
+
+**Request:** multipart/form-data with a file field.
+
+**Example Response:**
+
+```
+
+{
+  "filename": "john_doe_resume.pdf",
+  "compliance_score": 0.95,
+  "vector_length": 384,
+  "status": "Securely Indexed"
+}
+```
+
+2. **Semantic Search**
+
+```
+GET /search
+```
+
+Allows for natural language queries to find the most relevant resumes stored in the database.
+
+**How it works:**
+
+1. Takes a text query (e.g., "Python developer with FastAPI experience").
+
+Generates a vector for the query.
+
+2. Performs a similarity search in the Endee database to find the best matches.
+
+3. Store: Indexes the vector and metadata in the Endee database.
+
+**Parameters:**
+query (string): The search term.
+
+limit (int, optional): Number of results to return (default: 5).
+
+**Example Response:**
+
+```
+
+{
+  "query": "FastAPI expert",
+  "results": [
+    {
+      "filename": "resume_1.pdf",
+      "score": 0.89,
+      "metadata": { "exp_level": "Senior", "compliance_score": 1.0 }
+    }
+  ]
+}
+```
+
+## 🔒 Security Features
+
+**PII Redaction:** The ComplianceScanner ensures that no sensitive data reaches the OnlineEmbedder (HuggingFace API).
+
+**CORS Middleware:** Configured for cross-origin flexibility (currently set to \* for development).
+
+**Secure Initialization:** Automated collection setup in the Endee database on server startup.
+
+## 🤝 Contributing
+
+Since this is likely a project for Endee Labs or a personal portfolio, show that you are open to collaboration:
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+1. Fork the Project
+
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+
+4. Push to the Branch (git push origin feature/AmazingFeature)
+
+5. Open a Pull Request
+
+## 📧 Contact
+
+**Harshitha Gangadharan**
+
+- **GitHub:** [Harshitha-Gangadharan](https://github.com/Harshitha-Gangadharan/)
+- **Email:** [harshithayadav172004@gmail.com](mailto:harshithayadav172004@gmail.com)
+
+## ✨ Thank You!
+
+This project is a continuous learning journey. Thank you for checking out our integration with the Endee Engine—we look forward to hearing your thoughts and feedback!
